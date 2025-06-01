@@ -1,0 +1,111 @@
+# 🔐 ARCHIVOS SENSIBLES Y CONFIGURACIÓN
+# ⚠️ Variables de entorno y credenciales
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# 🔑 Archivos de configuración con credenciales
+application-prod.properties
+application-local.properties
+config/database.properties
+
+# 🗝️ Archivos de claves y certificados
+*.key
+*.pem
+*.p12
+*.jks
+keystore.jks
+truststore.jks
+
+# 📁 DIRECTORIOS DE BUILD Y COMPILACIÓN
+target/
+build/
+out/
+bin/
+*.jar
+*.war
+*.ear
+*.class
+
+# 📦 DEPENDENCIAS Y CACHE
+.m2/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🗄️ BASES DE DATOS LOCALES
+*.db
+*.sqlite
+*.sqlite3
+h2/
+hsqldb/
+
+# 📊 LOGS Y TEMPORAL
+logs/
+*.log
+*.log.*
+temp/
+tmp/
+*.tmp
+
+# 🔧 IDEs Y EDITORES
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+
+# 🖥️ SISTEMA OPERATIVO
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# 📸 BACKUPS Y VERSIONES
+*.backup
+*.bak
+*.swp
+*.swo
+*~
+
+# 🚀 CONFIGURACIÓN DE DESPLIEGUE
+docker-compose.override.yml
+Dockerfile.local
+.dockerignore
+
+# 📈 ANÁLISIS Y REPORTES
+coverage/
+.nyc_output/
+*.coverage
+.coverage
