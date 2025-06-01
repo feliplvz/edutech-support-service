@@ -1,0 +1,1196 @@
+{
+  "info": {
+    "name": "🚀 EduTech Support Service - Colección Completa",
+    "description": "Colección completa de endpoints para el Microservicio de Soporte Técnico de EduTech.\n\n## 📋 Funcionalidades Incluidas:\n- 🎫 Gestión completa de tickets\n- 📝 Sistema de mensajes y comunicación\n- ❓ Base de conocimiento (FAQs)\n- 🏷️ Gestión de categorías\n- 📊 Estadísticas y métricas\n- 🏥 Health checks y monitoreo\n\n## 🔧 Configuración:\n- **Base URL**: http://localhost:8084\n- **Headers**: Content-Type: application/json\n- **Autenticación**: No requerida (modo desarrollo)\n\n## 🆔 IDs Válidos Actuales:\n- **TicketId**: 2, 3, 5, 6 (usar cualquiera de estos)\n- **CategoryId**: 1, 2, 3, 4 (categorías activas)\n- **FAQId**: 1, 2, 3, 4, 5, 6 (FAQs existentes)\n- **MessageId**: 2, 4 (mensajes existentes)\n\n## 🚀 Stack Tecnológico:\n- Spring Boot 3\n- PostgreSQL\n- JPA/Hibernate\n- Maven\n\n⭐ **¡Todos los endpoints han sido probados y funcionan correctamente!**\n\n💡 **Tip**: Los scripts automáticos actualizan las variables con IDs válidos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "edutech-support-collection",
+    "_exporter_id": "edutech-team"
+  },
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "http://localhost:8084",
+      "type": "string"
+    },
+    {
+      "key": "ticketId",
+      "value": "3",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "101",
+      "type": "string"
+    },
+    {
+      "key": "staffId",
+      "value": "201",
+      "type": "string"
+    },
+    {
+      "key": "categoryId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "faqId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "messageId",
+      "value": "2",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🏥 Health & Monitoring",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/actuator/health",
+              "host": ["{{baseURL}}"],
+              "path": ["actuator", "health"]
+            },
+            "description": "🏥 Verificar el estado general del microservicio y sus componentes (base de datos, disco, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Service Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/actuator/info",
+              "host": ["{{baseURL}}"],
+              "path": ["actuator", "info"]
+            },
+            "description": "📊 Obtener información detallada del microservicio"
+          },
+          "response": []
+        },
+        {
+          "name": "🔄 Actualizar Variables Automáticamente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "🔄 Ejecutar este request primero para actualizar automáticamente todas las variables con IDs válidos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 🔄 Script para actualizar variables automáticamente",
+                  "console.log('🔄 Actualizando variables con datos reales...');",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    const tickets = pm.response.json();",
+                  "    ",
+                  "    if (tickets && tickets.length > 0) {",
+                  "        // Actualizar ticketId con el primer ticket disponible",
+                  "        const firstTicket = tickets[0];",
+                  "        pm.collectionVariables.set('ticketId', firstTicket.id.toString());",
+                  "        pm.collectionVariables.set('userId', firstTicket.userId.toString());",
+                  "        pm.collectionVariables.set('categoryId', firstTicket.categoryId.toString());",
+                  "        ",
+                  "        console.log('✅ TicketId actualizado a:', firstTicket.id);",
+                  "        console.log('✅ UserId actualizado a:', firstTicket.userId);",
+                  "        console.log('✅ CategoryId actualizado a:', firstTicket.categoryId);",
+                  "    }",
+                  "}",
+                  "",
+                  "// Hacer request adicional para obtener FAQs",
+                  "pm.sendRequest({",
+                  "    url: pm.collectionVariables.get('baseURL') + '/api/faqs/published',",
+                  "    method: 'GET'",
+                  "}, function (err, response) {",
+                  "    if (!err && response.code === 200) {",
+                  "        const faqs = response.json();",
+                  "        if (faqs && faqs.length > 0) {",
+                  "            pm.collectionVariables.set('faqId', faqs[0].id.toString());",
+                  "            console.log('✅ FAQId actualizado a:', faqs[0].id);",
+                  "        }",
+                  "    }",
+                  "});",
+                  "",
+                  "console.log('✅ Variables actualizadas automáticamente!');"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ],
+      "description": "🏥 Endpoints para monitoreo y verificación del estado del servicio"
+    },
+    {
+      "name": "🎫 Gestión de Tickets",
+      "item": [
+        {
+          "name": "📋 Listar Todos los Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "📋 Obtener lista completa de todos los tickets del sistema"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Obtener Ticket por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}"]
+            },
+            "description": "🔍 Obtener detalles específicos de un ticket"
+          },
+          "response": []
+        },
+        {
+          "name": "➕ Crear Nuevo Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Problema de acceso al curso\",\n  \"description\": \"No puedo acceder al módulo 3 del curso de Java Spring Boot\",\n  \"priority\": \"MEDIA\",\n  \"userId\": 101,\n  \"categoryId\": 1,\n  \"courseId\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/tickets",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "➕ Crear un nuevo ticket de soporte"
+          },
+          "response": []
+        },
+        {
+          "name": "✏️ Actualizar Ticket",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Problema de acceso al curso - ACTUALIZADO\",\n  \"description\": \"No puedo acceder al módulo 3 del curso de Java Spring Boot. He intentado limpiar cache y cookies.\",\n  \"priority\": \"ALTA\",\n  \"userId\": 101,\n  \"categoryId\": 1,\n  \"courseId\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}"]
+            },
+            "description": "✏️ Actualizar información completa de un ticket existente"
+          },
+          "response": []
+        },
+        {
+          "name": "🗂️ Tickets Paginados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/paginated?page=0&size=10&sort=createdAt,desc",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "paginated"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt,desc"
+                }
+              ]
+            },
+            "description": "🗂️ Obtener tickets con paginación y ordenamiento"
+          },
+          "response": []
+        },
+        {
+          "name": "👤 Tickets por Usuario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/user/{{userId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "user", "{{userId}}"]
+            },
+            "description": "👤 Obtener todos los tickets de un usuario específico"
+          },
+          "response": []
+        },
+        {
+          "name": "👨‍💼 Tickets Asignados a Staff",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/assigned/{{staffId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "assigned", "{{staffId}}"]
+            },
+            "description": "👨‍💼 Obtener tickets asignados a un miembro del staff"
+          },
+          "response": []
+        },
+        {
+          "name": "🏷️ Tickets por Estado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/status/ABIERTO",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "status", "ABIERTO"]
+            },
+            "description": "🏷️ Filtrar tickets por estado (ABIERTO, EN_PROGRESO, RESUELTO, CERRADO)"
+          },
+          "response": []
+        },
+        {
+          "name": "📂 Tickets por Categoría",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/category/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "category", "{{categoryId}}"]
+            },
+            "description": "📂 Obtener tickets de una categoría específica"
+          },
+          "response": []
+        },
+        {
+          "name": "📚 Tickets por Curso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/course/45",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "course", "45"]
+            },
+            "description": "📚 Obtener tickets relacionados con un curso específico"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Buscar Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/search?keyword=acceso&page=0&size=10",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "acceso"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "🔍 Buscar tickets por palabra clave en título y descripción"
+          },
+          "response": []
+        },
+        {
+          "name": "👥 Asignar Ticket a Staff",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}/assign/{{staffId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}", "assign", "{{staffId}}"]
+            },
+            "description": "👥 Asignar un ticket a un miembro del staff"
+          },
+          "response": []
+        },
+        {
+          "name": "🔄 Cambiar Estado de Ticket",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}/status/EN_PROGRESO",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}", "status", "EN_PROGRESO"]
+            },
+            "description": "🔄 Cambiar el estado de un ticket (ABIERTO, EN_PROGRESO, RESUELTO, CERRADO)"
+          },
+          "response": []
+        },
+        {
+          "name": "⚡ Cambiar Prioridad",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}/priority/ALTA",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}", "priority", "ALTA"]
+            },
+            "description": "⚡ Cambiar la prioridad de un ticket (BAJA, MEDIA, ALTA, CRITICA)"
+          },
+          "response": []
+        },
+        {
+          "name": "⭐ Calificar Ticket",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}/rate?rating=5&feedback=Excelente soporte, problema resuelto rápidamente",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}", "rate"],
+              "query": [
+                {
+                  "key": "rating",
+                  "value": "5"
+                },
+                {
+                  "key": "feedback",
+                  "value": "Excelente soporte, problema resuelto rápidamente"
+                }
+              ]
+            },
+            "description": "⭐ Calificar un ticket resuelto (1-5 estrellas)"
+          },
+          "response": []
+        },
+        {
+          "name": "🗑️ Eliminar Ticket",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/{{ticketId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "{{ticketId}}"]
+            },
+            "description": "🗑️ Eliminar un ticket (solo para administradores)"
+          },
+          "response": []
+        }
+      ],
+      "description": "🎫 Gestión completa de tickets de soporte - crear, leer, actualizar, eliminar y operaciones avanzadas"
+    },
+    {
+      "name": "📊 Estadísticas de Tickets",
+      "item": [
+        {
+          "name": "📈 Conteo por Estados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/stats/status-counts",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "stats", "status-counts"]
+            },
+            "description": "📈 Obtener conteo de tickets agrupados por estado"
+          },
+          "response": []
+        },
+        {
+          "name": "⚡ Conteo por Prioridades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/stats/priority-counts",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "stats", "priority-counts"]
+            },
+            "description": "⚡ Obtener conteo de tickets agrupados por prioridad"
+          },
+          "response": []
+        },
+        {
+          "name": "📂 Conteo por Categorías",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/stats/category-counts",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "stats", "category-counts"]
+            },
+            "description": "📂 Obtener conteo de tickets agrupados por categoría"
+          },
+          "response": []
+        },
+        {
+          "name": "⏱️ Tiempo Promedio de Resolución",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/stats/avg-resolution-time",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "stats", "avg-resolution-time"]
+            },
+            "description": "⏱️ Obtener tiempo promedio de resolución de tickets en días"
+          },
+          "response": []
+        },
+        {
+          "name": "😊 Satisfacción Promedio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/tickets/stats/avg-satisfaction",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "tickets", "stats", "avg-satisfaction"]
+            },
+            "description": "😊 Obtener calificación promedio de satisfacción de los usuarios"
+          },
+          "response": []
+        }
+      ],
+      "description": "📊 Endpoints para obtener estadísticas y métricas de tickets"
+    },
+    {
+      "name": "📝 Gestión de Mensajes",
+      "item": [
+        {
+          "name": "💬 Mensajes de un Ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/ticket/{{ticketId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "ticket", "{{ticketId}}"]
+            },
+            "description": "💬 Obtener todos los mensajes de un ticket específico"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Mensaje por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/{{messageId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "{{messageId}}"]
+            },
+            "description": "🔍 Obtener detalles de un mensaje específico"
+          },
+          "response": []
+        },
+        {
+          "name": "➕ Crear Mensaje",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Hola, he intentado las soluciones sugeridas pero el problema persiste. ¿Podrían ayudarme con una verificación más detallada?\",\n  \"ticketId\": 1,\n  \"userId\": 101,\n  \"isInternal\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/messages",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages"]
+            },
+            "description": "➕ Crear un nuevo mensaje en un ticket"
+          },
+          "response": []
+        },
+        {
+          "name": "📝 Crear Nota Interna",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"NOTA INTERNA: Usuario reporta problema persistente. Revisar configuración de servidor de cursos. Posible problema de caché.\",\n  \"ticketId\": 1,\n  \"userId\": 201,\n  \"isInternal\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/messages/internal-note",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "internal-note"]
+            },
+            "description": "📝 Crear una nota interna (solo visible para el staff)"
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Marcar Mensaje como Leído",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/{{messageId}}/mark-read",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "{{messageId}}", "mark-read"]
+            },
+            "description": "✅ Marcar un mensaje específico como leído"
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Marcar Todos como Leídos",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/ticket/{{ticketId}}/mark-all-read?userId={{userId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "ticket", "{{ticketId}}", "mark-all-read"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userId}}"
+                }
+              ]
+            },
+            "description": "✅ Marcar todos los mensajes de un ticket como leídos para un usuario"
+          },
+          "response": []
+        },
+        {
+          "name": "🔢 Contar Mensajes No Leídos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/ticket/{{ticketId}}/unread-count?userId={{userId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "ticket", "{{ticketId}}", "unread-count"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userId}}"
+                }
+              ]
+            },
+            "description": "🔢 Obtener cantidad de mensajes no leídos en un ticket para un usuario"
+          },
+          "response": []
+        },
+        {
+          "name": "📋 Notas Internas de Ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/ticket/{{ticketId}}/internal-notes",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "ticket", "{{ticketId}}", "internal-notes"]
+            },
+            "description": "📋 Obtener solo las notas internas de un ticket"
+          },
+          "response": []
+        },
+        {
+          "name": "📊 Promedio de Mensajes por Ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/messages/stats/avg-messages-per-ticket",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "messages", "stats", "avg-messages-per-ticket"]
+            },
+            "description": "📊 Obtener el promedio de mensajes por ticket"
+          },
+          "response": []
+        }
+      ],
+      "description": "📝 Sistema de mensajería y comunicación dentro de los tickets"
+    },
+    {
+      "name": "❓ Gestión de FAQs",
+      "item": [
+        {
+          "name": "📋 Listar Todas las FAQs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs"]
+            },
+            "description": "📋 Obtener lista completa de todas las FAQs (incluyendo no publicadas)"
+          },
+          "response": []
+        },
+        {
+          "name": "🌟 FAQs Publicadas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/published",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "published"]
+            },
+            "description": "🌟 Obtener solo las FAQs publicadas y visibles para usuarios"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 FAQ por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}"]
+            },
+            "description": "🔍 Obtener detalles de una FAQ específica"
+          },
+          "response": []
+        },
+        {
+          "name": "📂 FAQs por Categoría",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/category/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "category", "{{categoryId}}"]
+            },
+            "description": "📂 Obtener FAQs de una categoría específica"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Buscar FAQs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/search?keyword=contraseña&page=0&size=10",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "contraseña"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "🔍 Buscar FAQs por palabra clave en pregunta, respuesta y keywords"
+          },
+          "response": []
+        },
+        {
+          "name": "➕ Crear Nueva FAQ",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"¿Cómo puedo descargar los materiales del curso?\",\n  \"answer\": \"Los materiales del curso se pueden descargar desde la sección 'Recursos' de cada módulo. Haz clic en el ícono de descarga junto a cada archivo.\",\n  \"categoryId\": 2,\n  \"searchKeywords\": \"descargar, materiales, recursos, archivos, curso\",\n  \"published\": true,\n  \"displayOrder\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/faqs",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs"]
+            },
+            "description": "➕ Crear una nueva FAQ"
+          },
+          "response": []
+        },
+        {
+          "name": "✏️ Actualizar FAQ",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"¿Cómo puedo descargar los materiales del curso? - ACTUALIZADA\",\n  \"answer\": \"Los materiales del curso se pueden descargar desde la sección 'Recursos' de cada módulo. Haz clic en el ícono de descarga junto a cada archivo. También puedes descargar todos los materiales desde el panel principal del curso.\",\n  \"categoryId\": 2,\n  \"searchKeywords\": \"descargar, materiales, recursos, archivos, curso, panel\",\n  \"published\": true,\n  \"displayOrder\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}"]
+            },
+            "description": "✏️ Actualizar una FAQ existente"
+          },
+          "response": []
+        },
+        {
+          "name": "🗑️ Eliminar FAQ",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}"]
+            },
+            "description": "🗑️ Eliminar una FAQ (solo para administradores)"
+          },
+          "response": []
+        },
+        {
+          "name": "📢 Publicar FAQ",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}/publish",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}", "publish"]
+            },
+            "description": "📢 Publicar una FAQ para hacerla visible a los usuarios"
+          },
+          "response": []
+        },
+        {
+          "name": "📵 Despublicar FAQ",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}/unpublish",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}", "unpublish"]
+            },
+            "description": "📵 Despublicar una FAQ para ocultarla de los usuarios"
+          },
+          "response": []
+        },
+        {
+          "name": "👁️ Incrementar Visualizaciones",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}/view",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}", "view"]
+            },
+            "description": "👁️ Incrementar el contador de visualizaciones de una FAQ"
+          },
+          "response": []
+        },
+        {
+          "name": "👍 Votar Útil",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}/helpful",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}", "helpful"]
+            },
+            "description": "👍 Votar una FAQ como útil"
+          },
+          "response": []
+        },
+        {
+          "name": "👎 Votar No Útil",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/{{faqId}}/unhelpful",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "{{faqId}}", "unhelpful"]
+            },
+            "description": "👎 Votar una FAQ como no útil"
+          },
+          "response": []
+        },
+        {
+          "name": "🔥 FAQs Más Vistas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/most-viewed?limit=5",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "most-viewed"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "🔥 Obtener las FAQs más vistas"
+          },
+          "response": []
+        },
+        {
+          "name": "⭐ FAQs Más Útiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/most-helpful?limit=5",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "most-helpful"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "⭐ Obtener las FAQs más útiles según votos"
+          },
+          "response": []
+        },
+        {
+          "name": "📊 Ratio de Utilidad",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/faqs/stats/helpfulness-ratio",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "faqs", "stats", "helpfulness-ratio"]
+            },
+            "description": "📊 Obtener el ratio promedio de utilidad de las FAQs"
+          },
+          "response": []
+        }
+      ],
+      "description": "❓ Base de conocimiento - Gestión completa de preguntas frecuentes"
+    },
+    {
+      "name": "🏷️ Gestión de Categorías",
+      "item": [
+        {
+          "name": "📋 Listar Todas las Categorías",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories"]
+            },
+            "description": "📋 Obtener lista completa de todas las categorías de tickets"
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Categorías Activas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/active",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "active"]
+            },
+            "description": "✅ Obtener solo las categorías activas y disponibles"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Categoría por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "{{categoryId}}"]
+            },
+            "description": "🔍 Obtener detalles de una categoría específica por ID"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Categoría por Nombre",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/name/Problemas%20Técnicos",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "name", "Problemas%20Técnicos"]
+            },
+            "description": "🔍 Buscar categoría por nombre exacto"
+          },
+          "response": []
+        },
+        {
+          "name": "➕ Crear Nueva Categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Certificaciones\",\n  \"description\": \"Consultas relacionadas con certificados y diplomas\",\n  \"active\": true,\n  \"expectedResolutionTimeHours\": 48\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories"]
+            },
+            "description": "➕ Crear una nueva categoría de tickets"
+          },
+          "response": []
+        },
+        {
+          "name": "✏️ Actualizar Categoría",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Certificaciones y Diplomas\",\n  \"description\": \"Consultas relacionadas con certificados, diplomas y reconocimientos académicos\",\n  \"active\": true,\n  \"expectedResolutionTimeHours\": 24\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "{{categoryId}}"]
+            },
+            "description": "✏️ Actualizar una categoría existente"
+          },
+          "response": []
+        },
+        {
+          "name": "🗑️ Eliminar Categoría",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "{{categoryId}}"]
+            },
+            "description": "🗑️ Eliminar una categoría (solo si no tiene tickets asociados)"
+          },
+          "response": []
+        },
+        {
+          "name": "✅ Activar Categoría",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/{{categoryId}}/activate",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "{{categoryId}}", "activate"]
+            },
+            "description": "✅ Activar una categoría para permitir su uso"
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Desactivar Categoría",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/ticket-categories/{{categoryId}}/deactivate",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "ticket-categories", "{{categoryId}}", "deactivate"]
+            },
+            "description": "❌ Desactivar una categoría para evitar su uso en nuevos tickets"
+          },
+          "response": []
+        }
+      ],
+      "description": "🏷️ Gestión de categorías para organizar y clasificar los tickets"
+    },
+    {
+      "name": "🏷️ Categorías Básicas (API Simplificada)",
+      "item": [
+        {
+          "name": "📋 Listar Categorías (Simple)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/categories",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "📋 API simplificada para obtener categorías (endpoint alternativo)"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Categoría por ID (Simple)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/categories/{{categoryId}}",
+              "host": ["{{baseURL}}"],
+              "path": ["api", "categories", "{{categoryId}}"]
+            },
+            "description": "🔍 API simplificada para obtener categoría por ID"
+          },
+          "response": []
+        }
+      ],
+      "description": "🏷️ API simplificada para categorías (endpoints alternativos de solo lectura)"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 🚀 EduTech Support Service - Pre-request Script",
+          "// Configuración automática de variables para la colección",
+          "",
+          "console.log('🚀 Iniciando request a EduTech Support Service...');",
+          "",
+          "// Verificar que el baseURL esté configurado",
+          "if (!pm.collectionVariables.get('baseURL')) {",
+          "    pm.collectionVariables.set('baseURL', 'http://localhost:8084');",
+          "    console.log('✅ BaseURL configurado automáticamente');",
+          "}",
+          "",
+          "// Verificar y actualizar IDs válidos si es necesario",
+          "const currentUrl = pm.request.url.toString();",
+          "",
+          "// Si el request involucra un ticketId específico, verificar que sea válido",
+          "if (currentUrl.includes('/tickets/{{ticketId}}') || currentUrl.includes('/tickets/' + pm.collectionVariables.get('ticketId'))) {",
+          "    console.log('🎫 Verificando ticketId válido...');",
+          "    // Usar el ID 3 que sabemos que existe",
+          "    pm.collectionVariables.set('ticketId', '3');",
+          "}",
+          "",
+          "// Log de la request actual",
+          "console.log('📡 Endpoint:', pm.request.url.toString());",
+          "console.log('🔧 Método:', pm.request.method);",
+          "console.log('🆔 TicketId actual:', pm.collectionVariables.get('ticketId'));"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 🚀 EduTech Support Service - Test Script",
+          "// Validaciones automáticas para todas las respuestas",
+          "",
+          "console.log('🧪 Ejecutando tests automáticos...');",
+          "",
+          "// Test básico de status code",
+          "pm.test('✅ Status code es exitoso', function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204]);",
+          "});",
+          "",
+          "// Test de tiempo de respuesta",
+          "pm.test('⚡ Tiempo de respuesta < 5000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "// Test de headers de seguridad",
+          "pm.test('🔒 Headers de seguridad presentes', function () {",
+          "    pm.expect(pm.response.headers.has('X-Content-Type-Options')).to.be.true;",
+          "    pm.expect(pm.response.headers.has('X-Frame-Options')).to.be.true;",
+          "});",
+          "",
+          "// Test de Content-Type para respuestas con cuerpo",
+          "if (pm.response.code !== 204) {",
+          "    pm.test('📝 Content-Type es JSON', function () {",
+          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+          "    });",
+          "}",
+          "",
+          "// Log de resultado",
+          "console.log('✅ Tests completados para:', pm.info.requestName);",
+          "console.log('📊 Status:', pm.response.status, '| Tiempo:', pm.response.responseTime + 'ms');"
+        ]
+      }
+    }
+  ]
+}

@@ -357,7 +357,7 @@ curl -X POST http://localhost:8084/api/faqs \
 ### 📁 Estructura del Proyecto
 ```
 📦 support-service/
-├── 📄 pom.xml                          # Configuración Maven empresarial
+├── 📄 pom.xml                          # Configuración Maven
 ├── 📄 README.md                        # Documentación profesional
 ├── 📄 .env.example                     # Plantilla de variables de entorno
 ├── 📄 .gitignore                       # Protección de archivos sensibles
