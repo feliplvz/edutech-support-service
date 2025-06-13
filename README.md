@@ -1,12 +1,21 @@
-# 🚀 EduTech - Microservicio de Soporte Técnico
+# 🎫 EduTech Support Service
 
 <div align="center">
 
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/projects/jdk/17/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.8-blue.svg)](https://www.postgresql.org/)
-[![API](https://img.shields.io/badge/API-REST-green.svg)](https://restfulapi.net/)
-[![Tests](https://img.shields.io/badge/Tests-✅%20Passed-success.svg)](./src/test)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-green.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.oracle.com/java/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
+[![Scripts](https://img.shields.io/badge/Scripts-Automatizados-orange.svg)](scripts/)
+
+**Microservicio de Soporte y Gestión de Tickets para la Plataforma EduTech**
+
+*Sistema completo de soporte técnico con tickets, categorías, FAQs y mensajes*
+
+</div>
+
+## 📋 Descripción
+
+EduTech Support Service es un microservicio robusto diseñado para gestionar el sistema de soporte técnico de la plataforma educativa EduTech. Proporciona funcionalidades completas para la gestión de tickets, categorías, preguntas frecuentes y mensajes de soporte.
 
 **🎯 Microservicio Empresarial de Gestión de Tickets y Soporte al Cliente**
 
@@ -704,6 +713,134 @@ mvn test jacoco:report
 - **📝 Logging Estructurado**: Logs informativos y de auditoría
 - **🔍 Error Tracking**: Respuestas de error consistentes y detalladas
 - **🗄️ Database Monitoring**: Validación automática de conexiones
+
+---
+
+## 🤖 Sistema de Automatización
+
+### 🎯 Scripts Multiplataforma
+
+Este proyecto incluye un **sistema completo de automatización** con scripts profesionales para **macOS/Linux** y **Windows**, diseñados para simplificar todas las operaciones del ciclo de vida del microservicio.
+
+#### 📁 Estructura del Sistema de Scripts
+
+```
+scripts/
+├── 🎨 banner.sh / banner.bat     # Banners profesionales del sistema
+├── mac/                          # Scripts optimizados para macOS/Linux
+│   ├── 🎮 controlador.sh         # Controlador maestro con 18+ operaciones
+│   ├── ⚙️ configurar.sh          # Configuración automática del entorno
+│   ├── 🚀 iniciar.sh             # Inicio inteligente con health checks
+│   ├── 🛑 detener.sh             # Parada elegante del servicio
+│   └── 🔍 verificar-estado.sh    # Diagnóstico completo del sistema
+└── windows/                      # Scripts equivalentes para Windows
+    ├── 🎮 controlador.bat        # Controlador maestro interactivo
+    ├── ⚙️ configurar.bat         # Configuración automática del entorno
+    ├── 🚀 iniciar.bat            # Inicio inteligente con health checks
+    ├── 🛑 detener.bat            # Parada elegante del servicio
+    └── 🔍 verificar-estado.bat   # Diagnóstico completo del sistema
+```
+
+#### 🚀 Inicio Rápido con Scripts
+
+##### 🍎 macOS/Linux
+```bash
+# 1. Configuración inicial
+chmod +x scripts/mac/*.sh
+./scripts/mac/configurar.sh
+
+# 2. Inicio del servicio
+./scripts/mac/controlador.sh
+# Seleccionar: 3) iniciar
+
+# 3. Verificar estado
+./scripts/mac/verificar-estado.sh
+```
+
+##### 🪟 Windows
+```cmd
+# 1. Configuración inicial
+scripts\windows\configurar.bat
+
+# 2. Inicio del servicio
+scripts\windows\controlador.bat
+:: Seleccionar: 3) iniciar
+
+# 3. Verificar estado
+scripts\windows\verificar-estado.bat
+```
+
+#### 🎮 Controlador Maestro - Centro de Comando
+
+El **controlador maestro** proporciona una interfaz interactiva con **18+ operaciones especializadas**:
+
+```
+🔧 CONFIGURACIÓN
+ 1) configurar      - 🛠️  Configurar entorno de desarrollo
+ 2) variables       - ⚙️  Gestionar variables de entorno
+
+🚀 CICLO DE VIDA
+ 3) iniciar         - 🚀 Iniciar el microservicio
+ 4) detener         - 🛑 Detener el microservicio
+ 5) reiniciar       - 🔄 Reiniciar el microservicio
+ 6) estado          - 🔍 Verificar estado del servicio
+
+🔨 COMPILACIÓN & PRUEBAS
+ 7) compilar        - 🔨 Compilar la aplicación
+ 8) pruebas         - 🧪 Ejecutar pruebas unitarias
+ 9) empaquetar      - 📦 Crear paquete desplegable
+10) limpiar         - 🧹 Limpiar artefactos de compilación
+
+📊 MONITOREO & LOGS
+11) logs            - 📋 Ver logs de la aplicación
+12) salud           - 🏥 Verificar endpoints de salud
+13) metricas        - 📈 Ver métricas del sistema
+14) bd              - 🗄️ Verificar conectividad de BD
+
+🔧 HERRAMIENTAS DEV
+15) dependencias    - 📦 Gestionar dependencias Maven
+16) postman         - 📮 Operaciones con Postman
+17) info            - ℹ️  Información del proyecto
+18) ayuda           - ❓ Ayuda y documentación
+```
+
+#### ⚙️ Características Avanzadas de los Scripts
+
+##### 🛠️ Configurador Automático
+- ✅ **Validación de requisitos** (Java 17+, Maven 3.6+, Git)
+- ✅ **Configuración de variables** de entorno con plantillas
+- ✅ **Gestión automática** de permisos y directorios
+- ✅ **Validación del proyecto** Maven y Spring Boot
+- ✅ **Generación de documentación** automática
+
+##### 🚀 Iniciador 
+- ✅ **Pre-flight checks** completos del sistema
+- ✅ **Gestión inteligente** de puertos con detección automática
+- ✅ **Health monitoring** con timeouts configurables (120s)
+- ✅ **Gestión de procesos** con PID tracking
+- ✅ **Logs en tiempo real** con colores y timestamps
+
+##### 🛑 STOP del servicio
+- ✅ **Terminación graceful** con múltiples métodos
+- ✅ **Búsqueda automática** de procesos relacionados
+- ✅ **Verificación post-shutdown** completa
+- ✅ **Limpieza automática** de archivos temporales
+
+##### 🔍 Diagnóstico Completo
+- ✅ **Verificación de puertos** y procesos activos
+- ✅ **Health endpoints** con análisis JSON
+- ✅ **Análisis de configuración** (.env, properties, pom.xml)
+- ✅ **Monitoreo de logs** y archivos recientes
+- ✅ **Información de recursos** (CPU, memoria)
+- ✅ **Resumen ejecutivo** con recomendaciones
+
+#### 📚 Documentación Completa
+
+Para información detallada sobre todos los scripts, consulta:
+- 📖 **[SCRIPTS_GUIDE.md](SCRIPTS_GUIDE.md)** - Guía completa del sistema de scripts
+- 🔧 **Resolución de problemas** multiplataforma
+- 🌐 **Compatibilidad** macOS/Linux y Windows
+- ✅ **Estado y versiones** de todos los scripts
 
 ---
 
